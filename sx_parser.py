@@ -48,6 +48,8 @@ for e in sx_data:
             transactions[e[12]]['Fee'] = e[4] * (-1)
             transactions[e[12]]['Fee Currency'] = e[2]
             transactions[e[12]]['Date'] = e[1]
+    else:
+        print(f'El tipo de transacción {e[12]} no está soportado por el script. Ponerse en contacto con el autor.')
 
 for key, value in transactions.items():
     if len(value) != 7:
