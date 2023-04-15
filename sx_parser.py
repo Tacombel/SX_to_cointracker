@@ -57,7 +57,7 @@ for e in sx_data:
         else:
             if not e[12] in transactions:
                 transactions[e[12]] = {}
-            transactions[e[12]]['Fee'] = e[4] * (-1)
+            transactions[e[12]]['Fee'] = float(e[4]) * (-1)
             transactions[e[12]]['Fee Currency'] = e[2]
             transactions[e[12]]['Date'] = e[1]
     else:
@@ -66,7 +66,7 @@ for e in sx_data:
 for key, value in transactions.items():
     if len(value) != 7:
         print(f'Faltan valores: {value}')
-    line = ['Operación', value["Buy Amount"], value["Buy Currency"], value["Sell Amount"] , value["Sell Currency"] ,'' ,'' , 'Southxchange','' ,'' , value["Date"]]
+    line = ['Operación', value["Buy Amount"], value["Buy Currency"], value["Sell Amount"] , value["Sell Currency"] ,value['Fee'] ,value['Fee Currency'] , 'Southxchange','' ,'' , value["Date"]]
     ct_data.append(line)
 
 with open('sx_cointracking.csv', mode='w') as file:
