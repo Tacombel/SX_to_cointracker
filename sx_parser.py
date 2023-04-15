@@ -15,10 +15,22 @@ if __name__ == "__main__":
 
 csv_first_line = "Type", "Buy Amount", "Buy Currency", "Sell Amount", "Sell Currency", "Fee", "Fee Currency", "Exchange", "Trade-Group", "Comment", "Date"
 
+types_spanish = ['Type', 'Comisión', 'Operación', 'Extracción', 'Depósito', 'Grifo']
+error = False
+for e in sx_data:
+    if e[3] not in types_spanish:
+        print(f'Transaction type "{e[3]}" not suported')
+        error =  True
+if error:
+    print(f'Capture this output and send it to the author.')
+    quit()
+
 transactions = {}
 ct_data = []
 for e in sx_data:
-    if e[3] == 'Grifo':
+    if e[3] == 'Type':
+        pass
+    elif e[3] == 'Grifo':
         line = ['Airdrop', str(e[4]), str(e[2]),'' ,'' ,'' ,'' , 'Southxchange','' ,'' ,e[1] ]
         ct_data.append(line)
     elif e[3] == 'Depósito':
@@ -49,7 +61,7 @@ for e in sx_data:
             transactions[e[12]]['Fee Currency'] = e[2]
             transactions[e[12]]['Date'] = e[1]
     else:
-        print(f'El tipo de transacción {e[12]} no está soportado por el script. Ponerse en contacto con el autor.')
+        print(f'El tipo de transacción {e[3]} no está soportado por el script. Ponerse en contacto con el autor.')
 
 for key, value in transactions.items():
     if len(value) != 7:
@@ -62,3 +74,4 @@ with open('sx_cointracking.csv', mode='w') as file:
     transaction_writer.writerow(csv_first_line)
     for e in ct_data:
         transaction_writer.writerow(e)
+print(f'sx_cointracking.csv generated. Upload it to cointracking')
