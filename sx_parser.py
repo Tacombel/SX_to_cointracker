@@ -1,5 +1,5 @@
 #python 3.8.10
-version = '0.1.3'
+version = '0.1.4'
 import csv
 
 if __name__ == "__main__":

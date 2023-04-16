@@ -22,6 +22,10 @@ SCP: 29397f5ac09162c48aeea537c4950d90a6b370899a2c8054a71e82ab4954228bb63e59c5646
 
 ----------------------------------------------------------------------------------------------------
 
+v0.1.4
+
+Added fee claculation
+
 v0.1.3
 
 Bug: fees where not added to transactions
