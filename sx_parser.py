@@ -26,6 +26,7 @@ if error:
     quit()
 
 transactions = {}
+fees = {'2022':{}, '2023':{}}
 ct_data = []
 for e in sx_data:
     if e[3] == 'Type':
@@ -60,6 +61,16 @@ for e in sx_data:
             transactions[e[12]]['Fee'] = float(e[4]) * (-1)
             transactions[e[12]]['Fee Currency'] = e[2]
             transactions[e[12]]['Date'] = e[1]
+            if '2022' in e[1]:
+                if e[2] in fees['2022']:
+                    fees['2022'][e[2]] = fees['2022'][e[2]] + float(e[4]) * (-1)
+                else:
+                    fees['2022'][e[2]] = float(e[4]) * (-1)
+            elif '2023' in e[1]:
+                if e[2] in fees['2023']:
+                    fees['2023'][e[2]] = fees['2023'][e[2]] + float(e[4]) * (-1)
+                else:
+                    fees['2023'][e[2]] = float(e[4]) * (-1)
     else:
         print(f'El tipo de transacción {e[3]} no está soportado por el script. Ponerse en contacto con el autor.')
 
@@ -75,3 +86,6 @@ with open('sx_cointracking.csv', mode='w') as file:
     for e in ct_data:
         transaction_writer.writerow(e)
 print(f'sx_cointracking.csv generated. Upload it to cointracking')
+print(f'Fees by year and coin')
+for key, value in fees.items():
+    print(f'{key}:{value}')
